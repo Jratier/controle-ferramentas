@@ -2,21 +2,34 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Controle de Ferramentas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lançamento de Ferramentas</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Bem-vindo ao Controle de Ferramentas</h2>
-        <div id="opcoes">
-            <button class="secondary" onclick="window.location.href='emprestimo.html'">Registrar Empréstimo</button>
-            <button class="secondary" onclick="window.location.href='relatorios.html'">Ver Relatórios</button>
-            <div id="admin-opcao" style="display:none;">
-                <button class="secondary" onclick="window.location.href='admin.html'">Administração</button>
-            </div>
-            <button class="danger" onclick="logout()">Logout</button>
-        </div>
+    <h1>Bem-vindo ao Sistema de Lançamentos</h1>
+
+    <script>
+        // Verifica se o usuário está logado
+        if (!localStorage.getItem('loggedIn')) {
+            alert('Você precisa fazer login primeiro.');
+            window.location.href = 'login.html'; // Redireciona para a página de login
+        }
+
+        // O restante do seu código de lançamentos vai aqui
+    </script>
+    
+    <!-- Exemplo de área para lançamentos (pode ser ajustada conforme suas necessidades) -->
+    <div id="launch-section">
+        <h2>Faça o Lançamento de Ferramentas</h2>
+        <form id="launchForm">
+            <label for="toolName">Nome da Ferramenta:</label>
+            <input type="text" id="toolName" required>
+            <label for="quantity">Quantidade:</label>
+            <input type="number" id="quantity" required>
+            <button type="submit">Lançar</button>
+        </form>
     </div>
-    <script src="js/scripts.js"></script>
+
 </body>
 </html>
