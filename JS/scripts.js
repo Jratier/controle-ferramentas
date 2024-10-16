@@ -1,4 +1,18 @@
 // scripts.js
+document.getElementById('loginForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Impede o envio do formulário
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Aqui você pode adicionar uma verificação de usuário/senha (exemplo simples)
+    if (username === 'admin' && password === 'senha123') {
+        localStorage.setItem('loggedIn', 'true'); // Armazena que o usuário está logado
+        window.location.href = 'index.html'; // Redireciona para a página de lançamentos
+    } else {
+        document.getElementById('error-message').textContent = 'Usuário ou senha incorretos.';
+    }
+});
 
 // Função para carregar JSON
 async function carregarJSON(caminho) {
