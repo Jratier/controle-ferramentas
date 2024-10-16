@@ -2,45 +2,20 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Controle de Ferramentas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/scripts.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
-        <form id="login-form">
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Entrar</button>
-        </form>
-    </div>
-    <script src="js/scripts.js"></script>
-    <script>
-        // Função de Login
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-
-            const usuarios = await carregarJSON('dados/usuarios.json');
-
-            if (!usuarios) {
-                alert('Erro ao carregar dados de usuários.');
-                return;
-            }
-
-            const usuario = usuarios.usuarios.find(u => u.nome.toLowerCase() === username.toLowerCase() && u.senha === password);
-            if (usuario) {
-                // Armazena informações de login no localStorage
-                localStorage.setItem('usuario', JSON.stringify(usuario));
-                // Redireciona para a página principal
-                window.location.href = 'index.html';
-            } else {
-                alert('Usuário ou senha incorretos.');
-            }
-        });
-    </script>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" required>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" required>
+        <button type="submit">Entrar</button>
+    </form>
+    <p id="error-message" style="color:red;"></p>
 </body>
 </html>
