@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Ferramentas</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Bem-vindo ao Controle de Ferramentas</h2>
+        <div id="opcoes">
+            <button class="secondary" onclick="window.location.href='emprestimo.html'">Registrar Empréstimo</button>
+            <button class="secondary" onclick="window.location.href='relatorios.html'">Ver Relatórios</button>
+            <div id="admin-opcao" style="display:none;">
+                <button class="secondary" onclick="window.location.href='admin.html'">Administração</button>
+            </div>
+            <button class="danger" onclick="logout()">Logout</button>
+        </div>
+    </div>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

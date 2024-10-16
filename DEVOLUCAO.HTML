@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Devolução - Controle de Ferramentas</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Registrar Devolução de Ferramenta</h2>
+        <form id="devolucao-form" onsubmit="registrarDevolucao(event)">
+            <label for="lancamento">Lançamento:</label>
+            <select id="lancamento" name="lancamento" required>
+                <option value="">Selecione um lançamento</option>
+                <!-- Opções populadas via JavaScript -->
+            </select>
+            <button type="submit">Registrar Devolução</button>
+        </form>
+        <button class="secondary" onclick="window.location.href='index.html'">Voltar</button>
+    </div>
+    <script src="js/scripts.js"></script>
+    <script>
+        // Função para popular o select de lançamentos pendentes
+        async function popularLancamentos() {
+            const lancamentos = await carregarJSON('dados/lancamentos.json');
+            const ferramentas = await carregarJSON('dados/ferramentas.json');
+            const usuarios = await carregarJSON('dados/usuarios.json');
+
+            if (!lancamentos || !ferramentas || !usuarios) {
+                alert('Erro ao carregar dados. Verifique os arquivos JSON.');
+                return;
+            }
+
+            const select = document.getElementById('lancamento');
+            lancamentos.lancamentos.forEach(l => {
+                if (l.dataDevolucao === null) {
+                    const ferramenta = ferramentas.ferramentas.find(f => f.id === l.ferramentaId);
+                    const usuario = usuarios.usuarios.find(u => u.id === l.usuarioId);
+                    const option = document.createElement('option');
+                    option.value = l.id;
+                    option.textContent = `ID: ${l.id} - ${ferramenta ? ferramenta.nome : 'Desconhecida'} - ${usuario ? usuario.nome : 'Desconhecido'} - ${new Date(l.dataEmprestimo).toLocaleString()}`;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Chamar a função para popular lançamentos na página de devolução
+        if (window.location.pathname.endsWith('devolucao.html')) {
+            popularLancamentos();
+        }
+    </script>
+</body>
+</html>

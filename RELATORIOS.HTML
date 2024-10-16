@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatórios - Controle de Ferramentas</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Relatórios</h2>
+        <button class="secondary" onclick="gerarRelatorio()">Gerar Relatório de Ferramentas Não Devolvidas em 24 Horas</button>
+        <div id="relatorio"></div>
+        <button class="secondary" onclick="window.location.href='index.html'">Voltar</button>
+    </div>
+    <script src="js/scripts.js"></script>
+    <script>
+        // Função para gerar relatório
+        async function gerarRelatorio() {
+            const lancamentos = await carregarJSON('dados/lancamentos.json');
+            const ferramentas = await carregarJSON('dados/ferramentas.json');
+            const usuarios = await carregarJSON('dados/usuarios.json');
+
+            if (!lancamentos || !ferramentas || !usuarios) {
+                alert('Erro ao carregar dados. Verifique os arquivos JSON.');
+                return;
+            }
+
+            const agora = new Date();
+            const limite = new Date(agora.getTime() - 24 * 60 * 60 * 1000); // 24 horas atrás
+
+            const relatorio = lancamentos.lancamentos.filter(l => {
+                return l.dataDevolucao === null && new Date(l.dataEmprestimo) <= limite;
+            });
+
+            if (relatorio.length === 0) {
+                document.getElementById('relatorio').innerHTML = '<p>Nenhuma ferramenta está há mais de 24 horas sem devolução.</p>';
+                return;
+            }
+
+            let tabela = '<table><thead><tr><th>ID Lançamento</th><th>Ferramenta</th><th>Usuário</th><th>Data Empréstimo</th><th>Horas Empréstimo</th></tr></thead><tbody>';
+
+            relatorio.forEach(l => {
+                const ferramenta = ferramentas.ferramentas.find(f => f.id === l.ferramentaId);
+                const usuario = usuarios.usuarios.find(u => u.id === l.usuarioId);
+                const dataEmprestimo = new Date(l.dataEmprestimo);
+                const horasEmpréstimo = Math.floor((agora - dataEmprestimo) / (1000 * 60 * 60));
+
+                tabela += `<tr>
+                    <td>${l.id}</td>
+                    <td>${ferramenta ? ferramenta.nome : 'Desconhecida'}</td>
+                    <td>${usuario ? usuario.nome : 'Desconhecido'}</td>
+                    <td>${dataEmprestimo.toLocaleString()}</td>
+                    <td>${horasEmpréstimo}h</td>
+                </tr>`;
+            });
+
+            tabela += '</tbody></table>';
+            document.getElementById('relatorio').innerHTML = tabela;
+        }
+    </script>
+</body>
+</html>

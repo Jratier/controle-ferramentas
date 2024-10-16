@@ -1,0 +1,7 @@
+{
+    "ferramentas": [
+        { "id": 1, "nome": "Furadeira", "quantidadeDisponivel": 10 },
+        { "id": 2, "nome": "Parafusadeira", "quantidadeDisponivel": 15 },
+        { "id": 3, "nome": "Martelo", "quantidadeDisponivel": 20 }
+    ]
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Administração - Controle de Ferramentas</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Administração</h2>
+        <div>
+            <h3>Cadastrar Novo Usuário</h3>
+            <form id="cadastro-usuario-form" onsubmit="cadastrarUsuario(event)">
+                <label for="nome-usuario">Nome:</label>
+                <input type="text" id="nome-usuario" name="nome-usuario" required>
+                <label for="senha-usuario">Senha:</label>
+                <input type="password" id="senha-usuario" name="senha-usuario" required>
+                <label for="admin-usuario">Administrador:</label>
+                <input type="checkbox" id="admin-usuario" name="admin-usuario">
+                <button type="submit">Cadastrar Usuário</button>
+            </form>
+        </div>
+        <div>
+            <h3>Cadastrar Nova Ferramenta</h3>
+            <form id="cadastro-ferramenta-form" onsubmit="cadastrarFerramenta(event)">
+                <label for="nome-ferramenta">Nome:</label>
+                <input type="text" id="nome-ferramenta" name="nome-ferramenta" required>
+                <label for="quantidade-ferramenta">Quantidade Disponível:</label>
+                <input type="number" id="quantidade-ferramenta" name="quantidade-ferramenta" min="1" required>
+                <button type="submit">Cadastrar Ferramenta</button>
+            </form>
+        </div>
+        <button class="secondary" onclick="window.location.href='index.html'">Voltar</button>
+    </div>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

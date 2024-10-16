@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Empréstimo - Controle de Ferramentas</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Registrar Empréstimo de Ferramenta</h2>
+        <form id="emprestimo-form" onsubmit="registrarEmprestimo(event)">
+            <label for="ferramenta">Ferramenta:</label>
+            <select id="ferramenta" name="ferramenta" required>
+                <option value="">Selecione uma ferramenta</option>
+                <!-- Opções populadas via JavaScript -->
+            </select>
+            <button type="submit">Registrar Empréstimo</button>
+        </form>
+        <button class="secondary" onclick="window.location.href='index.html'">Voltar</button>
+    </div>
+    <script src="js/scripts.js"></script>
+    <script>
+        // Função para popular o select de ferramentas
+        async function popularFerramentas() {
+            const ferramentas = await carregarJSON('dados/ferramentas.json');
+            const select = document.getElementById('ferramenta');
+            ferramentas.ferramentas.forEach(ferramenta => {
+                if (ferramenta.quantidadeDisponivel > 0) {
+                    const option = document.createElement('option');
+                    option.value = ferramenta.id;
+                    option.textContent = ferramenta.nome;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Chamar a função para popular ferramentas na página de empréstimo
+        if (window.location.pathname.endsWith('emprestimo.html')) {
+            popularFerramentas();
+        }
+    </script>
+</body>
+</html>

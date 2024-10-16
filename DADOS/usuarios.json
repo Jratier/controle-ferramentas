@@ -1,0 +1,7 @@
+{
+    "usuarios": [
+        { "id": 1, "nome": "admin", "senha": "admin123", "isAdmin": true },
+        { "id": 2, "nome": "João Silva", "senha": "senha123", "isAdmin": false },
+        { "id": 3, "nome": "ratier", "senha": "123456", "isAdmin": false }
+    ]
+}
